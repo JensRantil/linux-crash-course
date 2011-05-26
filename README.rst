@@ -15,10 +15,9 @@ På Svenska (in Swedish)
 Det här är en TPP_-presentation för att ge en kort crash course i GNU/Linux.
 Antingen kan man läsa presentationen rakt av från dess *presentation.txt*.
 
-Man kan också ladda ner TTP och därefter köra
+Man kan också ladda ner TTP och därefter köra::
 
-::
-  ttp presentation.txt
+  $ ttp presentation.txt
 
 för att starta upp presentationen i sin terminal (kör man Ubuntu/Debian så kan
 man enklast intallera TTP med "apt-get install ttp").
