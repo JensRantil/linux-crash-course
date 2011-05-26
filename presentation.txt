@@ -1,0 +1,263 @@
+--author Jens Rantil
+--title En vanlig dag i Linux
+--date 2011-05-25
+En kort crash course i Linux.
+
+--newpage agenda
+--heading Agenda
+
+--beginslideleftoutput
+  * Introduktion
+--endslideleftoutput
+
+--beginslideleftoutput
+  * Upprätta ett distansförhållande med en dator
+--endslideleftoutput
+
+--beginslideleftoutput
+  * Filöverföring
+--endslideleftoutput
+
+--beginslideleftoutput
+  * Filsystem
+--endslideleftoutput
+
+--beginslideleftoutput
+  * Att arbeta i terminalen
+--endslideleftoutput
+--beginslideleftoutput
+   * Redirects
+--endslideleftoutput
+--beginslideleftoutput
+   * Pipes
+--endslideleftoutput
+--beginslideleftoutput
+   * Vanliga program
+--endslideleftoutput
+
+--beginslideleftoutput
+  * Lära sig mer
+--endslideleftoutput
+
+--newpage intro
+--heading Introduktion - Lite historia
+
+  * UNIX är en grupp av operativsystem som utvecklades på AT&T på 1960- och
+    1970-talet.
+  * Lyckad arkitektur som sedan spridit sig och finns än idag:
+   * FreeBSD, OpenBSD, MacOSX, Solaris och GNU/Linux med flera...
+---
+
+  * Linux är namnet på kärnan som startar upp GNU/Linux, som är ett
+    operativsystem.
+  * Kärnan utvecklades av finländaren Linus Torvalds under 90-talet.
+   * Utvecklas idag av tusentals programmerare.
+---
+
+  * GNU är ett projekt att utveckla ett helt operativsystem, inklusive t.ex.
+    textredigerare med mera.
+   * Många menar att man vanhedrar GNU och man endast kallar operativsystemet
+     "Linux" istället för dess fulla namn "GNU/Linux". Nu vet ni!
+
+--newpage conn
+--heading Distansförhållande via terminalen
+
+  * Hur kan man arbeta i Linux?
+   * X (Gnome, KDE, 
+   * Skal (eng: shell)
+---
+
+  * Finns många terminalverktyg:
+---
+
+   * Telnet
+    * Gammal, okrypterad.
+---
+
+   * rsh ("remote shell")
+    * Gammal, okrypterad.
+---
+
+   * ssh (stödjer mer än bara terminal)
+
+--newpage
+--heading Distansförhållande via terminalen - SSH
+
+  * Beroende på platform finns det olika sätt att koppla upp sig mot en
+    SSH-server.
+---
+
+   * Applikationen "putty" (rekommenderas för Windows, Thomas!)
+    * Det finns en del andra alternativ för Windows.
+---
+
+   * Applikationen "ssh" via sin lokala terminal (MacOSX/Linux)
+---
+
+Hur man kopplar upp sig från MacOSX eller en Linux-terminal:
+--beginshelloutput
+$ ssh jens@host.domain.se
+Linux thehost 2.2.2-amd64 #1 SMP Mon Mar 7 21:35:22 UTC 2011 x86_64
+You have new mail.
+Last login: Mon May 23 16:42:46 2011 from yourclient.domain.se
+jens@thehost:~$ 
+--endshelloutput
+
+--newpage
+--heading Filsystem i GNU/Linux
+
+  * Linuxfilsystemet består av kataloger och filer. Man kan tänka sig
+    filsystemet som ett träd. I mångt och mycket fungerar det som ett
+    filsystem på de flesta andra operativsystem.
+---
+
+  * Allting utgår från / som kallas "root"-katalogen.
+---
+
+  * Det finns inga enheter som i t.ex. Windows. Istället "monterar" man t.ex.
+    en CD-ROM på en viss katalog. Genom att lista filer i en monterad katalog
+    kan man se vilka vilka filer som finns på den monterade enheten.
+
+--newpage
+--heading Att röra sig runt i filsystemet
+
+  * När man loggar in på en Linux-burk så hamnar man alltid automatiskt i sin
+    "hemkatalog". Det är där man lägger alla sina egna filer som har med det
+    man arbetar med.
+---
+
+  * Kommandot för att ta reda på vilken katalog man står i är "pwd".
+---
+
+Exempel:
+--beginshelloutput
+$ pwd
+/home/jens
+--endshelloutput
+
+   * Som standard ligger varje användares hemkatalog i katalogen /home
+    * Exempel: /home/jens
+
+--newpage
+--heading Att röra sig runt i filsystemet #2
+
+  * Kommandot 'cd' används för att förflytta sig till en viss katalog.
+
+--beginshelloutput
+$ pwd
+/home/jens
+$ cd /home
+$ pwd
+/home
+--endshelloutput
+
+  * Kommandot 'ls' används för att lista innehållet i en katalog.
+
+Såhär ser root-katalogen vanligtvis ut:
+--beginshelloutput
+$ cd /
+$ ls
+bin   dev  home        lib    lost+found  mnt  proc  sbin     srv  tmp	var
+boot  etc  initrd.img  lib64  media	  opt  root  selinux  sys  usr	vmlinuz
+---
+$ cd /home
+$ ls
+calle	   daniel  filipj  henrik  jonas   marten   tomas
+christian  filip   gustav  jens    magnus  richard  transfer
+--endshelloutput
+
+--newpage
+Självklart kan man också köra:
+--beginshelloutput
+$ ls /
+bin   dev  home        lib    lost+found  mnt  proc  sbin     srv  tmp  var
+boot  etc  initrd.img  lib64  media       opt  root  selinux  sys  usr  vmlinuz
+--endshelloutput
+
+--newpage
+--heading Vanliga kataloger som är bra att känna till
+
+  * /dev - här lagras alla systemfiler till t.ex. CD-ROM, hårddiskar etc.
+
+  * /etc - här lagras alla konfigurationsfiler.
+
+  * /home - här lagras alla home-kataloger
+
+  * /var/log - här lagras alla loggfiler på en maskin
+
+  * /usr - här läggs de flesta installerade program.
+
+--newpage
+--heading APT
+
+  * Används för att installera och ta bort program
+
+  * Se apt-get och aptitude.
+
+  * Exempel
+
+--newpage
+--heading Distanskopierande - SCP och WinSCP
+
+  * För att kopiera filer till och från en linux-maskin använder man
+
+   * WinSCP (windows)
+
+   * applikationen 'scp' (MacOSX/Linux):
+    * scp [[user@]host1:]file1 ... [[user@]host2:]file2
+
+Från din dator:
+--beginshelloutput
+$ scp presentation.txt jens@host.domain.se:~/nyttnamn.txt
+presentation.txt                                 100%  523     0.5KB/s   00:00
+--endshelloutput
+
+Till din dator:
+--beginshelloutput
+$ scp jens@host.domain.se:~/presentation.txt .
+presentation.txt                                 100%  523     0.5KB/s   00:00
+--endshelloutput
+---
+
+--newpage
+--heading "Flaggor" och "man pages"
+
+  * Flaggor används för att 
+   * Använd '-C'-flaggan för att komprimera när du skickar filer.
+   * Använd '-l'-flaggan för att sätta en begränsning på hur snabbt du skickar
+     filen.
+
+  * För att få information om ett visst kommando använder man med fördel "man"
+    -sidor.
+
+--beginshelloutput
+$ man scp
+...
+--endshelloutput
+
+--newpage commands
+--heading Vanliga kommandon och program
+
+  * touch - skapar en fil.
+  * mkdir - skapar en katalog.
+  * rmdir - tar bort en katalog.
+  * cat - skriver ut en fil.
+  * mv - flyttar en fil.
+  * cp - kopierar en fil eller en katalog (-r).
+  * less - bläddrar igenom en fil
+  * grep - filtrerar/urval av raderna på en fil.
+  * cut - plockar ut en del av en rad.
+  * wc - räknar ord, bytes och rader.
+  * tar - lägger ihop flera filer till en.
+  * gzip / gunzip - komprimerar av komprimerar en fil till och från zip.
+  * zless / zcat / zgrep - arbetar med gz-filer
+   * zless är inte så klokt att köra på stora filer.
+  * find - söker efter filer på en dator.
+   * Skriver som standard ut filerna i den katalog (+ underkataloger) man står i.
+
+--newpage
+--heading Hur man lär sig mer
+
+  * man-sidor ("man scp")
+
+  * http://www.commandlinefu.com
