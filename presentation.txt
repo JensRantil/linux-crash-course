@@ -261,3 +261,6 @@ $ man scp
   * man-sidor ("man scp")
 
   * http://www.commandlinefu.com
+
+  * http://www.thecoderush.com/first-steps-linux
+
